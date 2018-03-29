@@ -88,6 +88,87 @@ public class Graph {
 		
 	}
 	
-	
+    public static boolean hasPath(int[][] edges,int sv,int fv)
+    {
+        boolean visited[]=new boolean[edges.length];
+        return hasPathhelper(edges, sv, fv, visited);
+    }
+    
+    private static boolean hasPathhelper(int[][] edges,int sv,int fv,boolean[] visited)
+    {
+        visited[sv]=true;
+        if(edges[sv][fv]==1)
+            return true;
+        for(int i=0;i<edges.length;i++)
+        {
+            if(edges[sv][i]==1 && !visited[i])
+            {
+                if(hasPathhelper(edges, i, fv, visited))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    public static String getPath(int[][] edges,int sv,int fv)
+    {
+        boolean visited[]=new boolean[edges.length];
+        return getPathBFS(edges,sv,fv,visited);
+    }
+    
+    private static String getPathDFS(int[][] edges, int sv, int fv, boolean[] visited) {
+        visited[sv]=true;
+        if(sv==fv)
+        {
+            return ""+sv;
+        }
+        String smallAns="";
+        for(int i=0;i<edges.length;i++)
+        {
+            if(edges[sv][i]==1 && !visited[i])
+            {
+                smallAns=getPathDFS(edges,i,fv,visited);
+                if(smallAns!="")
+                    break;
+            }
+        }
+        if(smallAns!="")
+        {
+            return smallAns+" "+sv;
+        }
+        return smallAns;
+    }
+    
+    private static String getPathBFS(int[][] edges,int sv,int fv, boolean [] visited)
+    {
+        int[] parent=new int[edges.length];
+        Queue<Integer> queue=new LinkedList<>();
+        queue.add(sv);
+        visited[sv]=true;
+        String ans="";
+        while(!queue.isEmpty())
+        {
+            int curr=queue.poll();
+            if(curr==fv)
+                break;
+            for(int i=0;i<edges.length;i++)
+            {
+                if(edges[sv][i]==1 && !visited[i])
+                {
+                    parent[i]=sv;
+                    visited[i]=true;
+                    queue.add(i);
+                }
+            }
+        }
+        
+        int i=fv;
+        while(i!=sv) {
+            ans=ans+i+" ";
+            i=parent[i];
+        }
+        return ans+sv;
+    }
 	
 }
