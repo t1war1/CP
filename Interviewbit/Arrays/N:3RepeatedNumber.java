@@ -1,56 +1,97 @@
-package rough;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-public class TreeInVerticalOrder {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		BinaryTreeNode<Integer> root=new BinaryTreeNode<>(1);
-		root.left=new BinaryTreeNode<>(2);
-		root.right=new BinaryTreeNode<>(3);
-		root.left.left=new BinaryTreeNode<>(4);
-		root.left.left.right=new BinaryTreeNode<>(8);
-		root.left.right=new BinaryTreeNode<>(5);
-		root.right.left=new BinaryTreeNode<>(6);
-		root.right.right=new BinaryTreeNode<>(7);
-		printBinaryTreeVerticalOrder(root);
-	}
-	
-	public static void printBinaryTreeVerticalOrder(BinaryTreeNode<Integer> root){
-		HashMap<Integer,ArrayList<Integer>> map=new HashMap<>();
-		help(root,map,0);
-		for(ArrayList<Integer> arr:map.values())
-		{
-			for(int i:arr)
-			{
-				System.out.print(i+" ");
-			}
-			System.out.println();
-		}
-		
-	}
-	
-	public static void help(BinaryTreeNode<Integer> root,HashMap<Integer,ArrayList<Integer>> map,int distanceFromRoot)
-	{
-		if(root==null)
-			return;
-		
-		if(!map.containsKey(distanceFromRoot))
-		{
-			ArrayList<Integer> temp=new ArrayList<>();
-			temp.add(root.data);
-			map.put(distanceFromRoot, temp);
-		}else {
-			ArrayList<Integer> temp=map.get(distanceFromRoot);
-			temp.add(root.data);
-			map.put(distanceFromRoot, temp);
-		}
-		
-		help(root.left,map,distanceFromRoot-1);
-		help(root.right,map,distanceFromRoot+1);
-	}
+public class Solution {
+    // DO NOT MODIFY THE LIST
+    public int repeatedNumber(final List<Integer> a) {
+        
+        ArrayList<Pair> numbers=new ArrayList<>();
+        if(a.size()==0)
+        {
+            return -1;
+        }
+        if(a.size()==1)
+        {
+            return a.get(0);
+        }
+        for(int i=0;i<a.size();i++)
+        {
+            int curr=a.get(i);
+            if(numbers.size()<2)
+            {
+                    if(numbers.size()!=0)
+                    {
+                        if(numbers.get(0).value==curr)
+                        {
+                            numbers.set(0, new Pair(curr,numbers.get(0).count+1));
+                        }
+                        else {
+                            numbers.add(new Pair(curr,1));
+                        }
+                    }
+                    else
+                    numbers.add(new Pair(curr,1));
+            }
+            else
+            {
+                    if(curr==numbers.get(0).value)
+                    {
+                        numbers.set(0, new Pair(curr,numbers.get(0).count+1));
+                    }
+                    else if(curr==numbers.get(1).value)
+                    { 
+                        numbers.set(1, new Pair(curr,numbers.get(1).count+1));
+                    }
+                    else {
+                        int temp=numbers.get(1).count-1;
+                        if(temp==0)
+                            numbers.remove(1);
+                        else
+                        numbers.set(1, new Pair(numbers.get(1).value,temp));
+                        
+                        temp=numbers.get(0).count-1;
+                        if(temp==0)
+                        {
+                            numbers.remove(0);
+                        }
+                        else
+                        {
+                            numbers.set(0, new Pair(numbers.get(0).value,temp));
+                        }
+                    }
+            }
+            
+        }
+        int c1=Integer.MAX_VALUE;
+        if(numbers.size()>0)
+        c1=numbers.get(0).value;
+        int c2=Integer.MAX_VALUE;
+        if(numbers.size()==2)
+        c2=numbers.get(1).value;
+        int c1count=0,c2count=0;
+        for(int i=0;i<a.size();i++)
+        {
+                if(a.get(i)==c1)
+                    c1count++;
+                else if(a.get(i)==c2)
+                {
+                    c2count++;
+                }
+        }
+        if(c1count>a.size()/3)
+        {
+                return c1;
+        }
+        if(c2count>a.size()/3)
+        {
+            return c2;
+        }
+        return -1;
+    }
 }
-
+class Pair{
+    int value;
+    int count;
+    Pair(int value,int count)
+    {
+        this.value=value;
+        this.count=count;
+    }
+}
