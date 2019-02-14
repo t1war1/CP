@@ -1,34 +1,97 @@
-package a2oj.div2a;
+package codeChef.LongNov2018;
 import java.util.*;
 import java.io.*;
-
-public class Expression {
+public class ChefandHappiness {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
+		int t=s.nextInt();
+		while(t--!=0)
 		{
-			output = a + b + c;
+			int n=s.nextInt();
+			Pair arr[]=new Pair[n+1];
+			HashSet<Integer> set=new HashSet<>();
+			for(int i=1;i<=n;i++)
+			{
+				int num=s.nextInt();
+				arr[i]=new Pair(num,i);
+				set.add(num);
+			}
+			Arrays.sort(arr, 1, n+1,new PairCompare());
+			if(find(n,arr,set))
+			{
+				w.println("Truly Happy");
+			}
+			else
+			{
+				w.println("Poor Chef");
+			}
 		}
-		else if(a == 1 || (b == 1 && a < c))
-		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
-		
-		w.println(output);
 		w.close();
+	}
+	private static boolean find(int n, Pair[] arr, HashSet<Integer> set) {
+		int a=0,b=0;
+		for(int i=1;i<=n;i++)
+		{
+			if(i==1)
+			{
+				a=arr[i].index;
+				if(!set.contains(a))
+					a=-1;
+				continue;
+			}
+			else
+			{
+				if(arr[i].num==arr[i-1].num)
+				{
+					if(a!=-1)
+					{
+						b=arr[i].index;
+						if(!set.contains(b))
+						{
+							b=-1;continue;
+						}
+						else
+						{
+							return true;
+						}
+					}
+					else
+					{
+						a=arr[i].index;
+						if(!set.contains(arr[i].index))
+							a=-1;
+					}
+				}
+				else
+				{
+					a=arr[i].index;
+					if(!set.contains(a))
+						a=-1;
+				}
+			}
+		}
+		return false;
+	}
+	
+	static class Pair
+	{
+		int num,index;
+		Pair(int num,int index)
+		{
+			this.num=num;
+			this.index=index;
+		}
+	}
+	
+	static class PairCompare implements Comparator<Pair>
+	{
+
+		@Override
+		public int compare(Pair o1, Pair o2) {
+			return o1.num>o2.num?1:o1.num<o2.num?-1:0;
+		}
 		
 	}
 	static class InputReader {

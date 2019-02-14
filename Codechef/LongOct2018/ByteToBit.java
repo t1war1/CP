@@ -1,35 +1,55 @@
-package a2oj.div2a;
+package codeChef.LongOct2018;
+
 import java.util.*;
 import java.io.*;
 
-public class Expression {
+public class ByteToBit {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
+
+		int t=s.nextInt();
+		for(;t>0;t--)
 		{
-			output = a + b + c;
+			int n=s.nextInt();
+			long bits=(long)Math.pow(2,n/26);
+			long rem=n%26;
+			if(rem>10)
+			{
+				String ans=""+0+" ";
+				ans+=0+" ";
+				ans+=bits;
+				w.println(ans);
+			}
+			else if(rem>2 && rem<=10)
+			{
+				String ans=""+0+" ";
+				ans+=bits+" ";
+				ans+=0;
+				w.println(ans);
+			}
+			else if(rem==0)
+			{
+				String ans=""+0+" ";
+				bits=bits/2;
+				ans+=0+" ";
+				ans+=bits;
+				w.println(ans);
+			}
+			else
+			{
+				String ans=""+bits+" ";
+				ans+=0+" ";
+				ans+=0;
+				w.println(ans);
+			}
+			
+
 		}
-		else if(a == 1 || (b == 1 && a < c))
-		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
-		
-		w.println(output);
+
 		w.close();
-		
+
 	}
 	static class InputReader {
 

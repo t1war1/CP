@@ -1,35 +1,15 @@
-package a2oj.div2a;
+package codeChef.LongNov2018;
 import java.util.*;
 import java.io.*;
-
-public class Expression {
+public class GoodMedian {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
-		{
-			output = a + b + c;
-		}
-		else if(a == 1 || (b == 1 && a < c))
-		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
 		
-		w.println(output);
-		w.close();
+		int t=s.nextInt();
 		
+
 	}
 	static class InputReader {
 

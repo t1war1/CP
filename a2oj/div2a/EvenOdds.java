@@ -1,35 +1,28 @@
 package a2oj.div2a;
 import java.util.*;
 import java.io.*;
-
-public class Expression {
+public class EvenOdds {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
+		
+		long n=s.nextLong();
+		long k=s.nextLong();
+		
+		long half=(n+1)/2;
+		if(k<=half)
 		{
-			output = a + b + c;
+			w.println(2*k-1);
 		}
-		else if(a == 1 || (b == 1 && a < c))
+		else
 		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
+			k=k-half;
+			w.println(2*k);
 		}
 		
-		w.println(output);
 		w.close();
-		
+
 	}
 	static class InputReader {
 

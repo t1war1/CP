@@ -1,35 +1,33 @@
 package a2oj.div2a;
+
 import java.util.*;
 import java.io.*;
 
-public class Expression {
+public class AntonAndLetters {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
+		
+		String str=s.nextLine();
+		boolean freq[]=new boolean[26];
+		for(int i=0;i<str.length();i++)
 		{
-			output = a + b + c;
-		}
-		else if(a == 1 || (b == 1 && a < c))
-		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
+			char ch=str.charAt(i);
+			if(ch>='a' && ch<='z')
+			{
+				freq[ch-'a']=true;
+			}
 		}
 		
-		w.println(output);
+		int count =0;
+		for(int i=0;i<26;i++)
+		{
+			if(freq[i])
+				count++;
+		}
+		w.println(count);
 		w.close();
-		
 	}
 	static class InputReader {
 

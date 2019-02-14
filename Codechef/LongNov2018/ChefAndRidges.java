@@ -1,35 +1,35 @@
-package a2oj.div2a;
+package codeChef.LongNov2018;
 import java.util.*;
 import java.io.*;
-
-public class Expression {
+public class ChefAndRidges {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
+		int t=s.nextInt();
+		while(t--!=0)
 		{
-			output = a + b + c;
+			int turns=s.nextInt();
+			int n=0,o=0;
+			for(int i=0;i<turns;i++)
+			{
+				if(i%2==0)
+	            {
+	                int x=n*2+1;
+	                int y=n*2;
+	                n=x;o=y;
+	            }
+	            else
+	            {
+	                int x=o*2+1;
+	                int y=o*2+2;
+	                n=x;o=y;
+	            }
+			}
+			int ans=(int)Math.pow(2, turns);
+			w.print(n+" "+ans+" ");
 		}
-		else if(a == 1 || (b == 1 && a < c))
-		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
-		
-		w.println(output);
 		w.close();
-		
 	}
 	static class InputReader {
 

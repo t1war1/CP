@@ -1,35 +1,29 @@
-package a2oj.div2a;
+package codeChef.LongOct2018;
 import java.util.*;
 import java.io.*;
-
-public class Expression {
+public class ChefandServes {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
-		{
-			output = a + b + c;
-		}
-		else if(a == 1 || (b == 1 && a < c))
-		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
 		
-		w.println(output);
+		int t=s.nextInt();
+		for(;t>0;t--)
+		{
+			int p1=s.nextInt();
+			int p2=s.nextInt();
+			int k=s.nextInt();
+			int sum=p1+p2;
+			if((sum%(2*k))<k)
+			{
+				w.println("CHEF");
+			}
+			else
+			{
+				w.println("COOK");
+			}
+		}
 		w.close();
-		
 	}
 	static class InputReader {
 

@@ -1,37 +1,87 @@
-package a2oj.div2a;
+package codeforces.Edu53;
 import java.util.*;
 import java.io.*;
-
-public class Expression {
+public class VasyaandRobot {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
-		{
-			output = a + b + c;
-		}
-		else if(a == 1 || (b == 1 && a < c))
-		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
+		int n=s.nextInt();
+		String str=s.readString();
+		int x=s.nextInt();
+		int y=s.nextInt();
 		
-		w.println(output);
+		if((Math.abs(x)+Math.abs(y))>n || (Math.abs(x)+Math.abs(y))%2!=n%2)
+		{
+			w.println(-1);
+		}
+		else 
+		{
+		int low=0,high=n,ans=n;
+		while(low<=high)
+		{
+			int mid=(low+high)/2;
+			if(isValid(mid,str,n,x,y))
+			{
+				ans=Math.min(ans, mid);
+				high=mid-1;
+			}
+			else
+			{
+				low=mid+1;
+			}
+		}
+		w.println(ans);
+		}
 		w.close();
-		
+
 	}
+	
+	public static boolean isValid(int length, String str,int n,int x,int y)
+	{
+		Pair p=new Pair(0,0);
+		for(int i=length;i<n;i++)
+		{
+			change(p,str.charAt(i),1);
+		}
+		for(int i=0;i+length<=n;i++)
+		{
+			int dis=Math.abs(x-p.x)+Math.abs(y-p.y);
+			if(dis%2==length%2 & dis<=length)
+				return true;
+			if(i+length>=n)
+			{
+				break;
+			}
+			change(p,str.charAt(i),1);
+			change(p,str.charAt(i+length),-1);
+		}
+		return false;
+	}
+	
+	public static void change(Pair p,char ch,int op)
+	{
+		if(ch=='L')
+		{
+			p.x-=op;
+		}
+		else if(ch=='R')
+		{
+			p.x+=op;
+		}
+		else if(ch=='U')
+		{
+			p.y+=op;
+		}
+		else
+		{
+			p.y-=op;
+		}
+			
+	}
+	
 	static class InputReader {
+
 
 		private final InputStream stream;
 		private final byte[] buf = new byte[8192];
@@ -180,6 +230,14 @@ public class Expression {
 
 		public interface SpaceCharFilter {
 			public boolean isSpaceChar(int ch);
+		}
+	}
+	
+	static class Pair{
+		int x,y;
+		Pair(int x,int y)
+		{
+			this.x=x;this.y=y;
 		}
 	}
 }

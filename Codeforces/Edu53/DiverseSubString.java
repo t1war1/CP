@@ -1,35 +1,38 @@
-package a2oj.div2a;
+package codeforces.Edu53;
 import java.util.*;
 import java.io.*;
-
-public class Expression {
+public class DiverseSubString {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
+		int n=s.nextInt();
+		String str=s.readString();
+		char prev=str.charAt(0);
+		String ans=""+prev;
+		int count=0;
+		for(int i=1;i<n;i++)
 		{
-			output = a + b + c;
+			char ch=str.charAt(i);
+			if(ch!=prev)
+			{
+				count=1;
+				ans+=ch;
+				break;
+			}
 		}
-		else if(a == 1 || (b == 1 && a < c))
+		if(count==0)
 		{
-			output = (a + b) * c;
+			
+			w.println("NO");
 		}
-		else if(c == 1 || (b == 1 && a >= c))
+		else
 		{
-			output = a * (b + c);
+			w.println("YES");
+			w.print(ans);
 		}
-		else{
-			output = a * b * c;
-		}
-		
-		w.println(output);
 		w.close();
-		
+
 	}
 	static class InputReader {
 

@@ -1,35 +1,47 @@
-package a2oj.div2a;
+package codeforces.Edu53;	
 import java.util.*;
 import java.io.*;
-
-public class Expression {
+public class BerlandFair {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
+		int n=s.nextInt();
+		long t=s.nextLong();
+		int arr[]=new int[n];
+		for(int i=0;i<n;i++)
 		{
-			output = a + b + c;
+			arr[i]=s.nextInt();
 		}
-		else if(a == 1 || (b == 1 && a < c))
+		long count=0;
+		while(t>0)
 		{
-			output = (a + b) * c;
+			long t1=t;
+			long sum=0;
+			int countcurr=0;
+			for(int i=0;i<n;i++)
+			{
+				if(t1==0)
+				{
+					break;
+				}
+				if(t1>=arr[i])
+				{
+					sum+=arr[i];
+					t1-=arr[i];
+					countcurr++;
+				}
+			}
+			if(countcurr==0)
+			{
+				break;
+			}
+			long temp=t/sum;
+			count+=temp*countcurr;
+			t=t%sum;
 		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
-		
-		w.println(output);
+		w.println(count);
 		w.close();
-		
 	}
 	static class InputReader {
 

@@ -1,35 +1,33 @@
-package a2oj.div2a;
+package codeforces.Edu53;
 import java.util.*;
 import java.io.*;
-
-public class Expression {
+public class VasyaAndBooks {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
+		int n=s.nextInt();
+		HashMap<Integer,Integer> map=new HashMap<>();
+		for(int i=0;i<n;i++)
 		{
-			output = a + b + c;
+			int k=s.nextInt();
+			map.put(k,i);
 		}
-		else if(a == 1 || (b == 1 && a < c))
+		int curr=0;
+		for(int i=0;i<n;i++)
 		{
-			output = (a + b) * c;
+			int req=s.nextInt();
+			if(!map.containsKey(req) || (map.containsKey(req) && map.get(req)<curr))
+			{
+				w.print(0+" ");continue;
+			}
+			int index=map.get(req);
+			int ans=index-curr+1;
+			curr=index+1;
+			w.print(ans+" ");
 		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
-		
-		w.println(output);
 		w.close();
-		
+
 	}
 	static class InputReader {
 

@@ -1,36 +1,66 @@
-package a2oj.div2a;
+package codeChef.LongOct2018;
 import java.util.*;
 import java.io.*;
+public class BeautifulBricks {
 
-public class Expression {
-
+	static int num=1000000007;
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
+
+		int t=s.nextInt();
+
+		for(;t>0;t--)
 		{
-			output = a + b + c;
+			int n=s.nextInt();
+			int k=s.nextInt();
+			
+			int ans=find(n,k);
+			w.println(ans);
 		}
-		else if(a == 1 || (b == 1 && a < c))
-		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
-		
-		w.println(output);
 		w.close();
-		
 	}
+	
+	public static int find(int n,int k)
+	{
+		int f[][]=new int[2][k+1];
+		int g[][]=new int[2][k+1];
+		int bit=0;
+		for(int i=0;i<=n;i++)
+		{
+			bit=i&1;
+			for(int j=0;j<=k && j<=i;j++)
+			{
+				if(i==0 && j==0)
+				{
+					f[bit][j]=1;
+					g[bit][j]=0;	
+				}
+				else if(j>i)
+				{
+					f[bit][j]=0;
+					g[bit][j]=0;
+				}
+				else if(i==j)	
+				{
+					f[bit][j]=0;
+					g[bit][j]=2;
+				}
+				else if(j==0)
+				{
+					f[bit][j]=1;
+					g[bit][j]=0;
+				}
+				else
+				{
+					g[bit][j]=(2*f[1-bit][j-1]%num+g[1-bit][j-1]%num)%num;
+					f[bit][j]=(f[1-bit][j]%num+g[1-bit][j]%num)%num;
+				}
+			}
+		}
+		return (f[bit][k]%num+g[bit][k]%num)%num;
+	}
+	
 	static class InputReader {
 
 		private final InputStream stream;

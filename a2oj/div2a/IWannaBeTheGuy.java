@@ -1,35 +1,35 @@
 package a2oj.div2a;
+
 import java.util.*;
 import java.io.*;
 
-public class Expression {
+public class IWannaBeTheGuy {
 
 	public static void main(String[] args) {
 		InputReader s=new InputReader(System.in);
 		PrintWriter w=new PrintWriter(System.out);
-		int a=s.nextInt();
-		int b=s.nextInt();
-		int c=s.nextInt();
-		int output;
-		if(a == 1 && c == 1)
-		{
-			output = a + b + c;
-		}
-		else if(a == 1 || (b == 1 && a < c))
-		{
-			output = (a + b) * c;
-		}
-		else if(c == 1 || (b == 1 && a >= c))
-		{
-			output = a * (b + c);
-		}
-		else{
-			output = a * b * c;
-		}
 		
-		w.println(output);
+		int levels=s.nextInt();
+		int x,y;
+		HashSet<Integer> set=new HashSet<>();
+		for(int i=0;i<2;i++)
+		{
+			x=s.nextInt();
+			for(int j=0;j<x;j++)
+			{
+				y=s.nextInt();
+				set.add(y);
+			}
+		}
+		if(set.size()==levels)
+		{
+			w.println("I become the guy.");
+		}
+		else
+		{
+			w.println("Oh, my keyboard!");
+		}
 		w.close();
-		
 	}
 	static class InputReader {
 
