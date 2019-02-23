@@ -110,3 +110,11 @@ public:
 		}
 	}
 };
+int main() {
+	fastIO;
+	MinusOperation solver;
+	std::istream& in(std::cin);
+	std::ostream& out(std::cout);
+	solver.solve(in, out);
+	return 0;
+}
