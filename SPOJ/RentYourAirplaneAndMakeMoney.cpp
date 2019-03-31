@@ -78,6 +78,7 @@ public:
 		    cache[n-1]=arr[n-1].se.se;
 		    for(int i=n-2;i>=0;i--)
             {
+				cache[i]=max(cache[i+1],arr[i].se.se);
 		        if(arr[n-1].fi>arr[i].fi+arr[i].se.fi)
                 {
                     ll finishTime=arr[i].fi+arr[i].se.fi;
@@ -87,12 +88,17 @@ public:
                         cache[i]=max(cache[i], cache[findInd]+arr[i].se.se );
                     }
                 }
-		        else{
-                    cache[i]=max(cache[i+1],arr[i].se.se);
-                }
-
             }
 		    cout<<cache[0]<<"\n";
         }
 	}
 };
+
+int main() {
+	fastIO;
+	RentYourAirplaneAndMakeMoney solver;
+	std::istream& in(std::cin);
+	std::ostream& out(std::cout);
+	solver.solve(in, out);
+	return 0;
+}

@@ -9,26 +9,6 @@ int dest,n,k;
 vector<pair<int,int>> graph;
 int cache[60][4];
 string str="";
-
-void rec(int len, int num, int source)
-{
-	if(len==0)
-	{
-		return;
-	}
-	bool flag=0;
-	if(cache[len-1][graph[source].first]>=num)
-	{
-		str+='0';
-		rec(len-1,num,graph[source].first);
-	}
-	else{
-		str+='1';
-		num-=cache[len-1][graph[source].first];
-		rec(len-1,num,graph[source].second);
-	}
-}
-
 int dp(int i, int source)
 {
 	if(cache[i][source]!=-1)
@@ -48,6 +28,26 @@ int dp(int i, int source)
 	cache[i][source]=dp(i-1,graph[source].first)+dp(i-1,graph[source].second);
 	return cache[i][source];
 }
+void rec(int len, int num, int source)
+{
+	if(len==0)
+	{
+		return;
+	}
+	bool flag=0;
+	if(dp(len-1,graph[source].first)>=num)
+	{
+		str+='0';
+		rec(len-1,num,graph[source].first);
+	}
+	else{
+		str+='1';
+		num-=dp(len-1,graph[source].first);
+		rec(len-1,num,graph[source].second);
+	}
+}
+
+
 
 int main() {
 	memset(cache,-1, sizeof(cache));
