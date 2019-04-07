@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+#define mod 1000000007ll
+#define mod2 1000000009ll
+#define mod3 998244353
+#define pb push_back
+#define fastIO ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+#define readi(x) scanf("%d",&x)
+#define reads(x)  scanf("%s", x)
+#define readl(x) scanf("%I64d",&x)
+#define PI 3.141592653589793238462643383
+#define repi(i,a,b) for(int i=a;i<b;i++)
+#define repd(i,a,b) for(int i=a;i>b;i--)
+#define mp make_pair
+#define ll long long
+#define sorti(a,b) sort(a,b)
+#define sortd(a,b,tp) sort(a,b,greater<tp>())
+#define ff first
+#define ss second
+
+using namespace std;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+typedef pair<long double,long double>pdd;
+template<class T>
+using max_pq = priority_queue<T>;
+template<class T>
+using min_pq = priority_queue<T,vector<T>,greater<T>>;
+int oo = 0x3f3f3f3f;
+ll pwr (ll base, ll p)
+{
+    ll ans = 1;
+    while(p){
+    if(p & 1)   ans = (ans * base) % mod2;
+    base = (base * base) % mod2;
+    p /= 2;
+}
+return ans;
+}
+class CQuiz {
+
+public:
+
+	void solve(istream& cin, ostream& cout) {
+		ll n,m,k;
+		cin>>n>>m>>k;
+
+		ll wrong=n-m;
+		ll correctDiff=wrong*(k-1);
+
+		if(correctDiff>=m)
+        {
+		    cout<<m;
+        } else{
+		    ll correctLeft=m-correctDiff;
+		    ll noOfconsecutiveGroups=correctLeft/k;
+		    ll rem=correctLeft%k;
+            ll ans=((((((pwr(2,noOfconsecutiveGroups)-1)*2%mod2)*k)%mod2+rem%mod2)%mod2)+correctDiff%mod2)%mod2;
+            if(ans<0)
+            {
+                ans+=mod2;
+            }
+            cout<<ans;
+		}
+
+	}
+};
