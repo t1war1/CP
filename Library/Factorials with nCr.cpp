@@ -1,3 +1,4 @@
+const int N=2e5+5,MOD=;
 int fact[N], invfact[N];
 
 int pow(int a, int b, int m)
