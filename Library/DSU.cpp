@@ -1,3 +1,4 @@
+const int N=;
 struct DSU
 {
 	int connected;
@@ -5,7 +6,7 @@ struct DSU
 
 	DSU() {} 
 
-	DSU(int n) 
+	void init(int n) 
 	{
 		for(int i=1;i<=n;i++)
 		{
@@ -47,3 +48,4 @@ struct DSU
 		par[par1]=par[par2];
 	}
 };
+DSU dsu;
